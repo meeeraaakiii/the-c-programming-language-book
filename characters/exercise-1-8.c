@@ -1,7 +1,9 @@
+// count amount of input lines
+// perhaps by "blank" the author meant ' ' spaces. Oh well.
+
 #include <stdio.h>
 #include <stdbool.h>
 
-// count amount of input lines
 void main() {
     int c, blancCount, tabCount, newlineCount;
 
