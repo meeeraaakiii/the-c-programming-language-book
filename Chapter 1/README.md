@@ -5,6 +5,9 @@ temperatures and their centigrade or Celsius equivalents.
 
 ## Instructions
 ```bash
+# run program
+gcc yuor-program-file.c -o executable && ./executable
+# examples
 gcc fahrenheit-celsius-table.c -o executable && ./executable
 gcc celsius-fahrenheit-table.c -o executable && ./executable
 ```
