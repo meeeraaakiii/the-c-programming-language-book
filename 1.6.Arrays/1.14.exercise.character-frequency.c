@@ -1,12 +1,9 @@
+// Print a histogram of lengths of words in the input. Words up to 20 characters until we learn dynamic memory.
+
 #include <stdio.h>
 #include <ctype.h>
 
-// Function to print binary representation of a number
-void printBinary(int n) {
-    for (int i = 7; i >= 0; i--) { // 8-bit binary representation
-        putchar((n & (1 << i)) ? '1' : '0');
-    }
-}
+#define MAX_CHAR_NUMBER 127 // Only regular ASCII characters, no extended character set
 
 // Function to handle special character names
 const char* getSpecialCharName(int ch) {
@@ -49,27 +46,34 @@ const char* getSpecialCharName(int ch) {
     }
 }
 
-int main() {
-    printf("ASCII Table\n");
-    printf("Char      | Dec  | Hex  | Oct   | Binary\n");
-    printf("----------+------+------+-------+----------------\n");
+void main() {
+    int character, length = 0;
+    int charsLengths[MAX_CHAR_NUMBER]; // Array to count word lengths
+    for (int i = 0; i <= MAX_CHAR_NUMBER; ++i) {
+        charsLengths[i] = 0;
+    }
 
-    for (int i = 0; i <= 127; i++) {
+    while ((character = getchar()) != EOF) {
+        if (character > 127) {
+            // skip it if it's not in regular ASCII charset
+            continue;
+        }
+        charsLengths[character]++;
+    }
+
+    for (int i = 0; i < MAX_CHAR_NUMBER; i++) {
         const char* specialCharName = getSpecialCharName(i);
 
         // Determine the character display: special name, printable char, or blank
         if (specialCharName) {
-            printf("%-10s| %3d  | 0x%02X | %03o   | ", specialCharName, i, i, i);
+            printf("%-3s: ", specialCharName);
         } else if (isprint(i)) {
-            printf("'%c'       | %3d  | 0x%02X | %03o   | ", i, i, i, i);
-        } else {
-            printf("Non-print | %3d  | 0x%02X | %03o   | ", i, i, i);
+            printf("'%c': ", i);
         }
-
-        // Print binary representation
-        printBinary(i);
-        printf("\n");
+        int lengthOfTheCurrentChar = charsLengths[i];
+        for (int barCounter = 0; barCounter < lengthOfTheCurrentChar; barCounter++) {
+            putchar('|');
+        }
+        putchar('\n');
     }
-
-    return 0;
 }
