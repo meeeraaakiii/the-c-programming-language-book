@@ -9,13 +9,18 @@ before the specified column.
 
 #define MAX_LINE_LENGTH 10 // largest allowed length for a line (unless there are no spaces in it)
 
-// int fold(int maxLineLength);
-
 int fold(int maxLineLength) {
-    int i, c;
+    int i, c, counter = 0;
     for (int i = 0;(c = getchar()) != EOF && c != '\n'; i++) {
-        printf("jdfsd");
+        counter++;
+        if (counter >= 10 && c == ' ') {
+            counter = 0;
+            putchar('\n');
+            continue;
+        }
+        putchar(c);
     }
+    putchar('\n');
     return 0;
 }
 
