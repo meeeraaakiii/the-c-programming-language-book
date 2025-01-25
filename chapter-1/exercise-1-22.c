@@ -7,21 +7,55 @@ before the specified column.
 
 #include <stdio.h>
 
-#define MAX_LINE_LENGTH 10 // largest allowed length for a line (unless there are no spaces in it)
+#define MAX_LINE_LENGTH 10 // Maximum column width before folding
 
-int fold(int maxLineLength) {
-    int i, c, counter = 0;
-    for (int i = 0;(c = getchar()) != EOF && c != '\n'; i++) {
-        counter++;
-        if (counter >= 10 && c == ' ') {
-            counter = 0;
-            putchar('\n');
+void fold(int maxLineLength) {
+    int c, position = 0, lastSpace = -1;
+    char buffer[MAX_LINE_LENGTH + 1]; // Buffer to store the current line segment
+    int bufIndex = 0;
+
+    while ((c = getchar()) != EOF) {
+        if (c == '\n') { // Reset at new line
+            if (bufIndex > 0) {
+                buffer[bufIndex] = '\0';
+                printf("%s\n", buffer);
+            }
+            bufIndex = 0;
+            position = 0;
+            lastSpace = -1;
             continue;
         }
-        putchar(c);
+
+        buffer[bufIndex++] = c;
+        position++;
+
+        if (c == ' ') {
+            lastSpace = bufIndex - 1; // Store last space position
+        }
+
+        if (position >= maxLineLength) {
+            if (lastSpace != -1) { // Break at last space
+                buffer[lastSpace] = '\0';
+                printf("%s\n", buffer);
+                bufIndex -= (lastSpace + 1); // Shift remaining characters
+                for (int i = 0; i < bufIndex; i++) {
+                    buffer[i] = buffer[lastSpace + 1 + i];
+                }
+                position = bufIndex; // Reset position
+            } else { // No spaces, force break
+                buffer[bufIndex] = '\0';
+                printf("%s\n", buffer);
+                bufIndex = 0;
+                position = 0;
+            }
+            lastSpace = -1;
+        }
     }
-    putchar('\n');
-    return 0;
+
+    if (bufIndex > 0) { // Print remaining characters
+        buffer[bufIndex] = '\0';
+        printf("%s\n", buffer);
+    }
 }
 
 int main() {
