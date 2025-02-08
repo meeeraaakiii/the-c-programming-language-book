@@ -30,6 +30,9 @@ void determineTypesRanges() {
     signed long long slMax = ul/2;
     signed long long slMin = ul/2 + 1;
     printf("signed long: %lld - %lld\n", slMin, slMax);
+    // reading memory
+    printf("signed long: %lld - %lld - %lld - %lld - %lld\n", slMin, slMax);
+    printf("signed long: %lld - %lld - %lld - %lld - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x - %02x \n", slMin, slMax);
 }
 
 int main() {
